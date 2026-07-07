@@ -82,12 +82,27 @@ em { color: var(--cyan); font-family: Georgia, serif; font-weight: 400; }
 .hero-orb { position: absolute; border-radius: 50%; filter: blur(4px); }
 .orb-one { width: 360px; height: 360px; right: -180px; top: -150px; background: rgba(0,180,216,.2); }
 .orb-two { width: 250px; height: 250px; left: 40%; bottom: -190px; background: rgba(34,197,94,.15); }
-.ecosystem-visual { position: relative; min-height: 550px; }
-.visual-ring { position: absolute; border: 1px solid rgba(0,180,216,.28); border-radius: 50%; inset: 50%; transform: translate(-50%,-50%); }
-.ring-one { width: 220px; height: 220px; }.ring-two { width: 365px; height: 365px; border-style: dashed; }.ring-three { width: 515px; height: 515px; opacity: .35; }
-.visual-core { position: absolute; z-index: 2; top: 50%; left: 50%; display: flex; width: 178px; height: 178px; transform: translate(-50%,-50%); align-items: center; justify-content: center; flex-direction: column; gap: 12px; border: 1px solid rgba(255,255,255,.22); border-radius: 50%; background: rgba(20,44,81,.8); box-shadow: 0 0 70px rgba(0,180,216,.16); backdrop-filter: blur(12px); }
-.visual-core .logo { width: 132px; padding: 5px 7px; }
-.visual-core small { color: #8ca1bb; font-size: .6rem; }
+.ecosystem-visual { --amp: 1.6; --rate: 14s; position: relative; display: grid; min-height: 550px; place-items: center; }
+.orb-svg { width: min(100%, 520px); height: auto; overflow: visible; }
+.sphere { transform-origin: center; transform-box: fill-box; animation: breathe-sphere var(--rate) ease-in-out infinite; }
+@keyframes breathe-sphere { 0%,100% { transform: scale(calc(1 - 0.045 * var(--amp))); opacity: calc(1 - 0.2 * var(--amp)); } 50% { transform: scale(calc(1 + 0.05 * var(--amp))); opacity: 1; } }
+.sphere-glow { transform-origin: center; transform-box: fill-box; animation: breathe-glow var(--rate) ease-in-out infinite; }
+@keyframes breathe-glow { 0%,100% { opacity: calc(0.3 - 0.08 * var(--amp)); transform: scale(1); } 50% { opacity: calc(0.45 + 0.22 * var(--amp)); transform: scale(calc(1 + 0.11 * var(--amp))); } }
+.ring { transform-origin: center; transform-box: fill-box; transition: opacity .6s ease; }
+.ring-b { animation: spin 46s linear infinite; }
+.ring-f { animation: spin 62s linear infinite reverse; }
+.ring-l { animation: spin 54s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.node-orbit { transform-origin: center; transform-box: fill-box; }
+.node-b { animation: spin 46s linear infinite; }
+.node-f { animation: spin 62s linear infinite reverse; }
+.node-l { animation: spin 54s linear infinite; }
+.ecosystem-visual:hover .ring { opacity: .28; }
+.ecosystem-visual .ring.is-hot { opacity: 1; }
+.dot { transition: r .4s ease, filter .4s ease; }
+.ring.is-hot .dot { filter: drop-shadow(0 0 6px currentColor); }
+.center-sub { fill: #8ca1bb; font-size: 9.5px; font-weight: 600; letter-spacing: .05em; }
+@media (prefers-reduced-motion: reduce) { .sphere, .sphere-glow, .ring-b, .ring-f, .ring-l, .node-b, .node-f, .node-l { animation: none !important; } }
 .satellite { position: absolute; z-index: 3; display: flex; align-items: center; gap: 9px; max-width: 185px; padding: 10px 13px; border: 1px solid rgba(255,255,255,.12); border-radius: 8px; color: #dce8f5; background: rgba(13,31,60,.88); box-shadow: 0 15px 40px rgba(0,0,0,.17); }
 .satellite > span { display: grid; gap: 2px; }
 .satellite strong { color: var(--white); font-size: .66rem; }
