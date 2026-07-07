@@ -101,14 +101,7 @@ em { color: var(--cyan); font-family: Georgia, serif; font-weight: 400; }
 .ecosystem-visual .ring.is-hot { opacity: 1; }
 .dot { transition: r .4s ease, filter .4s ease; }
 .ring.is-hot .dot { filter: drop-shadow(0 0 6px currentColor); }
-.center-sub { fill: #8ca1bb; font-size: 9.5px; font-weight: 600; letter-spacing: .05em; }
 @media (prefers-reduced-motion: reduce) { .sphere, .sphere-glow, .ring-b, .ring-f, .ring-l, .node-b, .node-f, .node-l { animation: none !important; } }
-.satellite { position: absolute; z-index: 3; display: flex; align-items: center; gap: 9px; max-width: 185px; padding: 10px 13px; border: 1px solid rgba(255,255,255,.12); border-radius: 8px; color: #dce8f5; background: rgba(13,31,60,.88); box-shadow: 0 15px 40px rgba(0,0,0,.17); }
-.satellite > span { display: grid; gap: 2px; }
-.satellite strong { color: var(--white); font-size: .66rem; }
-.satellite small { color: #91a6c0; font-size: .52rem; font-weight: 600; line-height: 1.35; }
-.sat-business { left: 1%; top: 27%; }.sat-finance { right: 2%; top: 25%; }.sat-learning { right: 8%; bottom: 20%; }
-.sat-business svg { color: var(--blue); }.sat-finance svg { color: var(--green); }.sat-learning svg { color: var(--cyan); }
 .ecosystem-map-section { border-top: 1px solid rgba(255,255,255,.08); background: var(--navy-2); }
 .ecosystem-map { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; padding-block: 16px; }
 .ecosystem-map-item { display: flex; align-items: center; gap: 9px; min-width: 0; padding: 10px 12px; border: 1px solid rgba(0,180,216,.2); border-radius: 8px; background: rgba(255,255,255,.035); }

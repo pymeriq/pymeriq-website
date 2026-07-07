@@ -213,13 +213,9 @@ function homePage() {
             <circle class="sphere" cx="200" cy="200" r="86" fill="url(#sphereFill)" stroke="rgba(120,170,255,0.35)" stroke-width="1"/>
             <circle class="sphere" cx="200" cy="200" r="86" fill="none" stroke="rgba(0,180,216,0.25)" stroke-width="1"/>
             <g class="sphere">
-              <image href="/src/assets/brand/pymeriq-mark.svg" x="150" y="144" width="100" height="84" preserveAspectRatio="xMidYMid meet"/>
-              <text class="center-sub" x="200" y="252" text-anchor="middle">${copy.ecosystemLabel}</text>
+              <image href="/src/assets/brand/pymeriq-mark.svg" x="150" y="158" width="100" height="84" preserveAspectRatio="xMidYMid meet"/>
             </g>
           </svg>
-          <span class="satellite sat-business">${icon("store", 20)}<span><strong>${copy.satellites.business[0]}</strong><small>${copy.satellites.business[1]}</small></span></span>
-          <span class="satellite sat-finance">${icon("chart", 20)}<span><strong>${copy.satellites.finance[0]}</strong><small>${copy.satellites.finance[1]}</small></span></span>
-          <span class="satellite sat-learning">${icon("book", 20)}<span><strong>${copy.satellites.learning[0]}</strong><small>${copy.satellites.learning[1]}</small></span></span>
         </div>
       </div>
     </section>
