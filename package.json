@@ -10,7 +10,7 @@
     "dev": "node server.mjs",
     "build": "node scripts/build.mjs",
     "preview": "node server.mjs dist 4173",
-    "check:syntax": "node --check src/app.js && node --check src/data.js && node --check scripts/build.mjs && node --check scripts/site-routes.mjs && node --check scripts/verify-dist.mjs && node --check scripts/verify-server.mjs && node --check server.mjs",
+    "check:syntax": "node --check src/app.js && node --check src/data.js && node --check scripts/build.mjs && node --check scripts/shared.mjs && node --check scripts/site-routes.mjs && node --check scripts/verify-dist.mjs && node --check scripts/verify-server.mjs && node --check server.mjs",
     "verify:dist": "node scripts/verify-dist.mjs",
     "verify:server": "node scripts/verify-server.mjs",
     "check": "npm run check:syntax && npm run build && npm run verify:dist && npm run verify:server"

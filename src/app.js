@@ -2,6 +2,7 @@ import {
   categories,
   companyContent,
   content,
+  productAssetDirectory,
   products,
   publicContent,
   routeMetadata,
@@ -11,7 +12,13 @@ import {
 
 const isBrowser = typeof window !== "undefined" && typeof document !== "undefined";
 const app = isBrowser ? document.querySelector("#app") : null;
-let locale = isBrowser ? localStorage.getItem("pymeriq-locale") || "en" : "en";
+const supportedLocales = companyContent.supportedLocales;
+
+function normalizeLocale(value) {
+  return supportedLocales.includes(value) ? value : companyContent.defaultLocale;
+}
+
+let locale = normalizeLocale(isBrowser ? localStorage.getItem("pymeriq-locale") : companyContent.defaultLocale);
 
 const iconPaths = {
   arrow: '<path d="M5 12h14m-5-5 5 5-5 5"/>',
@@ -36,7 +43,7 @@ function localizedPath(path = "/") {
 
 function pathParts() {
   const parts = window.location.pathname.split("/").filter(Boolean);
-  if (["en", "es"].includes(parts[0])) {
+  if (supportedLocales.includes(parts[0])) {
     locale = parts.shift();
     localStorage.setItem("pymeriq-locale", locale);
     return { hasLocale: true, parts };
@@ -58,10 +65,6 @@ function localizedVisualText(value) {
 function productVisualImage(visual, loading = "lazy") {
   if (!visual?.src) return "";
   return `<img src="${visual.src}" alt="${localizedVisualText(visual.alt)}" loading="${loading}">`;
-}
-
-function productAssetDirectory(product) {
-  return product.slug === "billing" ? "ap" : product.slug;
 }
 
 function productAssetPath(product, filename) {
@@ -130,7 +133,7 @@ function productCard(product, featured = false) {
   const copy = product[locale];
   const category = categories[product.category];
   const cardVisual = productVisualImage(product.visuals?.card);
-  return `<article class="product-card ${featured ? "featured" : ""} ${cardVisual ? "has-visual" : ""}">
+  return `<article class="product-card ${featured ? "featured" : ""} ${cardVisual ? "has-visual" : ""}" data-category="${product.category}">
     ${cardVisual ? `<div class="product-card-visual">${cardVisual}</div>` : ""}
     <div class="card-top">
       <span class="icon-tile ${category.color}" aria-hidden="true">${productIconAsset(product, featured)}</span>
@@ -150,7 +153,7 @@ function tutorialCard(tutorial) {
   const copy = tutorial[locale];
   const pageCopy = publicContent[locale].tutorials;
   return `<article class="tutorial-card">
-    <div class="tutorial-meta"><span>${pageCopy.categoryLabels[tutorial.category]}</span><span>${tutorial.minutes} min</span></div>
+    <div class="tutorial-meta"><span>${pageCopy.categoryLabels[tutorial.category]}</span><span>${tutorial.minutes} ${pageCopy.minutesLabel}</span></div>
     <h3>${copy.title}</h3>
     <p>${copy.excerpt}</p>
     <a class="text-link" href="${localizedPath(`/tutorials/${tutorial.slug}`)}">${content[locale].actions.read} ${icon("arrow", 16)}</a>
@@ -291,7 +294,7 @@ function tutorialDetailPage(slug) {
   const pageCopy = publicContent[locale].tutorials;
   return pageFrame("tutorials", `
     <article>
-      <header class="article-hero"><div class="shell article-narrow"><a class="back-link" href="${localizedPath("/tutorials")}">← ${content[locale].actions.back} ${content[locale].nav.tutorials}</a><p class="eyebrow green-text">${categories[tutorial.category][locale]} · ${tutorial.minutes} min</p><h1>${copy.title}</h1><p>${copy.intro}</p></div></header>
+      <header class="article-hero"><div class="shell article-narrow"><a class="back-link" href="${localizedPath("/tutorials")}">← ${content[locale].actions.back} ${content[locale].nav.tutorials}</a><p class="eyebrow green-text">${categories[tutorial.category][locale]} · ${tutorial.minutes} ${pageCopy.minutesLabel}</p><h1>${copy.title}</h1><p>${copy.intro}</p></div></header>
       <div class="shell article-layout"><aside><span>${pageCopy.inThisGuide}</span>${copy.sections.map(([title], index) => `<a href="#section-${index}">${String(index + 1).padStart(2, "0")} ${title}</a>`).join("")}</aside><div class="article-body"><div class="guide-outcome"><span>${pageCopy.outcome}</span><p>${copy.outcome}</p></div>${copy.sections.map(([title, body], index) => `<section id="section-${index}"><span>0${index + 1}</span><h2>${title}</h2><p>${body}</p></section>`).join("")}<div class="article-callout"><strong>${pageCopy.calloutTitle}</strong><p>${pageCopy.calloutText}</p></div></div></div>
     </article>
     ${ctaBlock()}
@@ -377,117 +380,80 @@ function updateMetadata(metadata, routePath = "", type = "website", isAdmin = fa
   }
 }
 
+// Single source of truth for resolving a locale-scoped public path to a rendered
+// view. `locale` must already be set before calling. Returns null for any path
+// that is not a known public route (unknown section, missing slug, admin, etc.).
+function resolvePublicView(parts) {
+  const [first, second] = parts;
+
+  if (parts.length === 0) {
+    return { view: homePage(), metadata: routeMetadata[locale].home, routePath: "", type: "website" };
+  }
+  if (parts.length === 1 && first === "products") {
+    return { view: productsPage(), metadata: routeMetadata[locale].products, routePath: "/products", type: "website" };
+  }
+  if (parts.length === 2 && first === "products") {
+    const product = products.find((item) => item.slug === second);
+    if (!product) return null;
+    return { view: productDetailPage(second), metadata: { title: `${product.name} | Pymeriq`, description: product[locale].summary }, routePath: `/products/${second}`, type: "website" };
+  }
+  if (parts.length === 1 && first === "tutorials") {
+    return { view: tutorialsPage(), metadata: routeMetadata[locale].tutorials, routePath: "/tutorials", type: "website" };
+  }
+  if (parts.length === 2 && first === "tutorials") {
+    const tutorial = tutorials.find((item) => item.slug === second);
+    if (!tutorial) return null;
+    return { view: tutorialDetailPage(second), metadata: { title: `${tutorial[locale].title} | Pymeriq`, description: tutorial[locale].excerpt }, routePath: `/tutorials/${second}`, type: "article" };
+  }
+  if (parts.length === 1 && first === "about") {
+    return { view: aboutPage(), metadata: routeMetadata[locale].about, routePath: "/about", type: "website" };
+  }
+  if (parts.length === 1 && first === "contact") {
+    return { view: contactPage(), metadata: routeMetadata[locale].contact, routePath: "/contact", type: "website" };
+  }
+  return null;
+}
+
 export function renderStaticPublicRoute(pathname) {
   const parts = pathname.split("/").filter(Boolean);
   const routeLocale = parts.shift();
-  if (!["en", "es"].includes(routeLocale)) return null;
+  if (!supportedLocales.includes(routeLocale)) return null;
 
   locale = routeLocale;
-  const [first, second] = parts;
-  let body;
-  let metadata;
-  let routePath = "";
-  let type = "website";
+  const resolved = resolvePublicView(parts);
+  if (!resolved) return null;
+  return { body: resolved.view, locale, metadata: resolved.metadata, routePath: resolved.routePath, type: resolved.type };
+}
 
-  if (parts.length === 0) {
-    body = homePage();
-    metadata = routeMetadata[locale].home;
-  } else if (parts.length === 1 && first === "products") {
-    body = productsPage();
-    metadata = routeMetadata[locale].products;
-    routePath = "/products";
-  } else if (parts.length === 2 && first === "products") {
-    const product = products.find((item) => item.slug === second);
-    if (!product) return null;
-    body = productDetailPage(second);
-    metadata = { title: `${product.name} | Pymeriq`, description: product[locale].summary };
-    routePath = `/products/${second}`;
-  } else if (parts.length === 1 && first === "tutorials") {
-    body = tutorialsPage();
-    metadata = routeMetadata[locale].tutorials;
-    routePath = "/tutorials";
-  } else if (parts.length === 2 && first === "tutorials") {
-    const tutorial = tutorials.find((item) => item.slug === second);
-    if (!tutorial) return null;
-    body = tutorialDetailPage(second);
-    metadata = { title: `${tutorial[locale].title} | Pymeriq`, description: tutorial[locale].excerpt };
-    routePath = `/tutorials/${second}`;
-    type = "article";
-  } else if (parts.length === 1 && first === "about") {
-    body = aboutPage();
-    metadata = routeMetadata[locale].about;
-    routePath = "/about";
-  } else if (parts.length === 1 && first === "contact") {
-    body = contactPage();
-    metadata = routeMetadata[locale].contact;
-    routePath = "/contact";
-  } else {
-    return null;
-  }
-
-  return { body, locale, metadata, routePath, type };
+function render(view, metadata, routePath, type) {
+  app.innerHTML = view;
+  updateMetadata(metadata, routePath, type);
+  bindEvents();
+  window.scrollTo(0, 0);
 }
 
 function route() {
   const { hasLocale, parts } = pathParts();
-  const [first, second] = parts;
-  let view;
-  let metadata = routeMetadata[locale].notFound;
-  let routePath = window.location.pathname;
-  let metadataType = "website";
 
   if (!hasLocale && parts.length === 0) {
-    const rootLocale = companyContent.supportedLocales.includes(locale) ? locale : companyContent.defaultLocale;
-    window.location.replace(`/${rootLocale}`);
+    window.location.replace(`/${normalizeLocale(locale)}`);
     return;
   }
 
-  if (!hasLocale && first === "admin") {
+  if (!hasLocale && parts[0] === "admin") {
     locale = "en";
     document.documentElement.lang = "en";
-    view = notFoundPage();
-  } else {
-    document.documentElement.lang = locale;
-    if (hasLocale && parts.length === 0) {
-      view = homePage();
-      metadata = routeMetadata[locale].home;
-      routePath = "";
-    } else if (hasLocale && parts.length === 1 && first === "products") {
-      view = productsPage();
-      metadata = routeMetadata[locale].products;
-      routePath = "/products";
-    } else if (hasLocale && parts.length === 2 && first === "products" && products.some((item) => item.slug === second)) {
-      const product = products.find((item) => item.slug === second);
-      view = productDetailPage(second);
-      metadata = { title: `${product.name} | Pymeriq`, description: product[locale].summary };
-      routePath = `/products/${second}`;
-    } else if (hasLocale && parts.length === 1 && first === "tutorials") {
-      view = tutorialsPage();
-      metadata = routeMetadata[locale].tutorials;
-      routePath = "/tutorials";
-    } else if (hasLocale && parts.length === 2 && first === "tutorials" && tutorials.some((item) => item.slug === second)) {
-      const tutorial = tutorials.find((item) => item.slug === second);
-      view = tutorialDetailPage(second);
-      metadata = { title: `${tutorial[locale].title} | Pymeriq`, description: tutorial[locale].excerpt };
-      routePath = `/tutorials/${second}`;
-      metadataType = "article";
-    } else if (hasLocale && parts.length === 1 && first === "about") {
-      view = aboutPage();
-      metadata = routeMetadata[locale].about;
-      routePath = "/about";
-    } else if (hasLocale && parts.length === 1 && first === "contact") {
-      view = contactPage();
-      metadata = routeMetadata[locale].contact;
-      routePath = "/contact";
-    } else {
-      view = notFoundPage();
-    }
+    render(notFoundPage(), routeMetadata.en.notFound, window.location.pathname, "website");
+    return;
   }
 
-  app.innerHTML = view;
-  updateMetadata(metadata, routePath, metadataType);
-  bindEvents();
-  window.scrollTo(0, 0);
+  document.documentElement.lang = locale;
+  const resolved = hasLocale ? resolvePublicView(parts) : null;
+  if (resolved) {
+    render(resolved.view, resolved.metadata, resolved.routePath, resolved.type);
+  } else {
+    render(notFoundPage(), routeMetadata[locale].notFound, window.location.pathname, "website");
+  }
 }
 
 function bindEvents() {
@@ -512,7 +478,7 @@ function bindEvents() {
   document.querySelector(".locale-toggle")?.addEventListener("click", (event) => {
     const next = event.currentTarget.dataset.locale;
     const parts = window.location.pathname.split("/").filter(Boolean);
-    if (["en", "es"].includes(parts[0])) parts.shift();
+    if (supportedLocales.includes(parts[0])) parts.shift();
     locale = next;
     localStorage.setItem("pymeriq-locale", locale);
     history.pushState({}, "", `/${locale}${parts.length ? `/${parts.join("/")}` : ""}`);
@@ -535,8 +501,8 @@ function bindEvents() {
       });
       button.classList.add("active");
       button.setAttribute("aria-pressed", "true");
-      document.querySelectorAll(".product-card").forEach((card, index) => {
-        card.hidden = button.dataset.filter !== "all" && products[index].category !== button.dataset.filter;
+      document.querySelectorAll(".product-card").forEach((card) => {
+        card.hidden = button.dataset.filter !== "all" && card.dataset.category !== button.dataset.filter;
       });
     });
   });

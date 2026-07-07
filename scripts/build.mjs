@@ -14,6 +14,7 @@ import {
   tutorials,
 } from "../src/data.js";
 import { publicRoutePaths } from "./site-routes.mjs";
+import { escapeAttribute } from "./shared.mjs";
 
 const execFileAsync = promisify(execFile);
 
@@ -83,7 +84,6 @@ await writeFile("dist/src/data.js", Object.entries(publicData).map(([name, value
 const template = await readFile("index.html", "utf8");
 
 const urls = ["en", "es"].flatMap((locale) => publicRoutePaths.map((path) => `${siteSettings.canonicalOrigin}/${locale}${path}`));
-const escapeAttribute = (value) => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 
 for (const locale of ["en", "es"]) {
   for (const path of publicRoutePaths) {
@@ -103,13 +103,16 @@ for (const locale of ["en", "es"]) {
     <link rel="canonical" href="${canonical}" />
     <link rel="alternate" hreflang="en" href="${siteSettings.canonicalOrigin}/en${path}" />
     <link rel="alternate" hreflang="es" href="${siteSettings.canonicalOrigin}/es${path}" />`;
+    // Replacement values come from content data, so pass them through function
+    // replacers: a string replacement would interpret `$$`, `$&`, `` $` ``, `$'`
+    // as special patterns and silently corrupt any content containing `$`.
     const html = template
       .replace('<html lang="en">', `<html lang="${locale}">`)
-      .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/, `<meta name="description" content="${escapeAttribute(rendered.metadata.description)}" />`)
+      .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/, () => `<meta name="description" content="${escapeAttribute(rendered.metadata.description)}" />`)
       .replace('<meta name="robots" content="noindex, nofollow" />', '<meta name="robots" content="index, follow" />')
-      .replace("<!-- route-metadata -->", metadata)
-      .replace(/<title>[^<]*<\/title>/, `<title>${rendered.metadata.title}</title>`)
-      .replace('<div id="app"></div>', `<div id="app">${rendered.body}</div>`);
+      .replace("<!-- route-metadata -->", () => metadata)
+      .replace(/<title>[^<]*<\/title>/, () => `<title>${rendered.metadata.title}</title>`)
+      .replace('<div id="app"></div>', () => `<div id="app">${rendered.body}</div>`);
     const directory = `dist/${locale}${path}`;
     await mkdir(directory, { recursive: true });
     await writeFile(`${directory}/index.html`, html);

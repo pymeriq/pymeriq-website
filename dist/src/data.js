@@ -433,7 +433,6 @@ export const content = {
       "contact": "Contact"
     },
     "actions": {
-      "explore": "Explore the ecosystem",
       "learn": "View product direction",
       "allProducts": "Explore products",
       "allTutorials": "Read practical guides",
@@ -465,7 +464,6 @@ export const content = {
       "contact": "Contacto"
     },
     "actions": {
-      "explore": "Explora el ecosistema",
       "learn": "Ver dirección del producto",
       "allProducts": "Explorar productos",
       "allTutorials": "Leer guías prácticas",
@@ -608,6 +606,7 @@ export const publicContent = {
       "text": "These guides turn operational questions, financial habits, and technology decisions into clear actions you can test and repeat.",
       "principle": "These guides help people make better decisions around operations, personal finance, and practical technology—the same problem areas Pymeriq products address.",
       "guideLabel": "Practical guide",
+      "minutesLabel": "min read",
       "categoryLabels": {
         "business": "Business guide",
         "financial": "Financial guide",
@@ -792,6 +791,7 @@ export const publicContent = {
       "text": "Estas guías convierten preguntas operacionales, hábitos financieros y decisiones tecnológicas en acciones claras que puedes probar y repetir.",
       "principle": "Estas guías ayudan a tomar mejores decisiones sobre operaciones, finanzas personales y tecnología práctica: las mismas áreas de problemas que abordan los productos Pymeriq.",
       "guideLabel": "Guía práctica",
+      "minutesLabel": "min de lectura",
       "categoryLabels": {
         "business": "Guía empresarial",
         "financial": "Guía financiera",
