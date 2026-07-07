@@ -182,8 +182,41 @@ function homePage() {
           </div>
         </div>
         <div class="ecosystem-visual" aria-label="${t.accessibility.ecosystem}">
-          <div class="visual-ring ring-one"></div><div class="visual-ring ring-two"></div><div class="visual-ring ring-three"></div>
-          <div class="visual-core">${logo(true)}<small>${copy.ecosystemLabel}</small></div>
+          <svg class="orb-svg" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+            <defs>
+              <radialGradient id="sphereFill" cx="42%" cy="38%" r="70%">
+                <stop offset="0%" stop-color="#2b6fd6" stop-opacity="0.55"/>
+                <stop offset="55%" stop-color="#0d357f" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#04195C" stop-opacity="0.15"/>
+              </radialGradient>
+              <radialGradient id="sphereGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#1a6ee8" stop-opacity="0.5"/>
+                <stop offset="100%" stop-color="#1a6ee8" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="ringB" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4f8ef0"/><stop offset="100%" stop-color="#1a6ee8"/></linearGradient>
+              <linearGradient id="ringF" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00b4d8"/><stop offset="100%" stop-color="#1a6ee8"/></linearGradient>
+              <linearGradient id="ringL" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#63c95f"/><stop offset="100%" stop-color="#3fa93b"/></linearGradient>
+            </defs>
+            <circle class="sphere-glow" cx="200" cy="200" r="120" fill="url(#sphereGlow)"/>
+            <g class="ring ring-l" color="#3fa93b">
+              <ellipse cx="200" cy="200" rx="168" ry="150" fill="none" stroke="url(#ringL)" stroke-width="1.4" stroke-opacity="0.55"/>
+              <g class="node-orbit node-l"><circle class="dot" cx="200" cy="50" r="7" fill="#3fa93b"/></g>
+            </g>
+            <g class="ring ring-f" color="#00b4d8">
+              <ellipse cx="200" cy="200" rx="132" ry="152" fill="none" stroke="url(#ringF)" stroke-width="1.4" stroke-opacity="0.55"/>
+              <g class="node-orbit node-f"><circle class="dot" cx="200" cy="48" r="7" fill="#00b4d8"/></g>
+            </g>
+            <g class="ring ring-b" color="#1a6ee8">
+              <ellipse cx="200" cy="200" rx="150" ry="128" fill="none" stroke="url(#ringB)" stroke-width="1.4" stroke-opacity="0.6"/>
+              <g class="node-orbit node-b"><circle class="dot" cx="200" cy="72" r="8" fill="#1a6ee8"/></g>
+            </g>
+            <circle class="sphere" cx="200" cy="200" r="86" fill="url(#sphereFill)" stroke="rgba(120,170,255,0.35)" stroke-width="1"/>
+            <circle class="sphere" cx="200" cy="200" r="86" fill="none" stroke="rgba(0,180,216,0.25)" stroke-width="1"/>
+            <g class="sphere">
+              <image href="/src/assets/brand/pymeriq-mark.svg" x="150" y="144" width="100" height="84" preserveAspectRatio="xMidYMid meet"/>
+              <text class="center-sub" x="200" y="252" text-anchor="middle">${copy.ecosystemLabel}</text>
+            </g>
+          </svg>
           <span class="satellite sat-business">${icon("store", 20)}<span><strong>${copy.satellites.business[0]}</strong><small>${copy.satellites.business[1]}</small></span></span>
           <span class="satellite sat-finance">${icon("chart", 20)}<span><strong>${copy.satellites.finance[0]}</strong><small>${copy.satellites.finance[1]}</small></span></span>
           <span class="satellite sat-learning">${icon("book", 20)}<span><strong>${copy.satellites.learning[0]}</strong><small>${copy.satellites.learning[1]}</small></span></span>
@@ -506,6 +539,20 @@ function bindEvents() {
       });
     });
   });
+
+  const orb = document.querySelector(".ecosystem-visual");
+  if (orb) {
+    const rings = orb.querySelectorAll(".ring");
+    rings.forEach((ring) => {
+      ring.addEventListener("mouseenter", () => {
+        rings.forEach((item) => item.classList.remove("is-hot"));
+        ring.classList.add("is-hot");
+      });
+    });
+    orb.addEventListener("mouseleave", () => {
+      rings.forEach((item) => item.classList.remove("is-hot"));
+    });
+  }
 
   document.querySelector("#contact-form")?.addEventListener("submit", (event) => {
     event.preventDefault();
