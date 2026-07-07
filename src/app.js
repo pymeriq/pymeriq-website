@@ -219,11 +219,6 @@ function homePage() {
         </div>
       </div>
     </section>
-    <div class="ecosystem-map-section">
-      <div class="shell ecosystem-map" aria-label="${copy.ecosystemMapLabel}">
-        ${copy.ecosystemMap.map(([area, products]) => `<div class="ecosystem-map-item"><strong>${area}</strong><span aria-hidden="true">→</span><p>${products}</p></div>`).join("")}
-      </div>
-    </div>
     <section class="section section-soft">
       <div class="shell">
         <div class="section-heading"><div><p class="eyebrow blue-text">${copy.categoriesKicker}</p><h2>${copy.categoriesTitle}</h2></div><p>${copy.categoriesText}</p></div>
@@ -250,7 +245,6 @@ function homePage() {
           ${copy.whyPoints.map(([title, text], index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><h3>${title}</h3><p>${text}</p></article>`).join("")}
         </div>
       </div>
-      <div class="shell brand-meaning"><h2>${copy.proofLabel}</h2><div class="brand-meaning-grid">${copy.proofPoints.map(([label, explanation]) => `<article><h3>${label}</h3><p>${explanation}</p></article>`).join("")}</div></div>
     </section>
     <section class="section">
       <div class="shell">
@@ -343,11 +337,15 @@ function aboutPage() {
 
 function contactPage() {
   const copy = publicContent[locale].contact;
-  const fields = copy.fields;
   return pageFrame("contact", `
-    <section class="contact-section"><div class="shell contact-grid">
-      <div><p class="eyebrow cyan-text">${copy.kicker}</p><h1>${copy.title}</h1><p class="hero-lede">${copy.text}</p><div class="contact-fallback"><strong>${copy.fallbackTitle}</strong><p>${copy.fallbackText} <a href="mailto:${siteSettings.contactEmail}">${siteSettings.contactEmail}</a>.</p></div></div>
-      <form class="contact-form" id="contact-form"><label>${fields.name}<input required name="name" placeholder="${fields.namePlaceholder}"></label><label>${fields.email}<input required type="email" name="email" placeholder="${content[locale].placeholders.email}"></label><label>${fields.topic}<select name="topic">${fields.topics.map((topic) => `<option>${topic}</option>`).join("")}</select></label><label>${fields.message}<textarea required name="message" rows="5" placeholder="${fields.messagePlaceholder}"></textarea></label><button class="button button-primary" type="submit">${copy.formAction} ${icon("arrow", 18)}</button><p class="form-note">${copy.formNote}</p></form>
+    <section class="contact-section"><div class="shell narrow">
+      <p class="eyebrow cyan-text">${copy.kicker}</p><h1>${copy.title}</h1><p class="hero-lede">${copy.text}</p>
+      <div class="contact-card">
+        <strong>${copy.emailTitle}</strong>
+        <p>${copy.emailText}</p>
+        <a class="button button-primary" href="mailto:${siteSettings.contactEmail}">${siteSettings.contactEmail} ${icon("arrow", 18)}</a>
+        <p class="contact-note">${copy.emailNote}</p>
+      </div>
     </div></section>
   `);
 }
@@ -550,12 +548,6 @@ function bindEvents() {
     });
   }
 
-  document.querySelector("#contact-form")?.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const button = event.currentTarget.querySelector("button");
-    button.innerHTML = `${publicContent[locale].contact.previewComplete} ${icon("check", 18)}`;
-    button.classList.add("button-success");
-  });
 }
 
 if (isBrowser) {

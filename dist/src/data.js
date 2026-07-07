@@ -498,7 +498,7 @@ export const publicContent = {
     },
     "home": {
       "kicker": "Business operations. Personal finance. Practical learning.",
-      "title": "One practical ecosystem for work, money, and skills.",
+      "title": "One <span class=\"accent\">practical</span> ecosystem for work, money, and skills.",
       "lede": "Pymeriq brings together focused solutions for small and medium businesses, people managing their finances, and learners building useful skills.",
       "ctas": {
         "products": "Explore products",
@@ -645,26 +645,9 @@ export const publicContent = {
       "kicker": "Contact Pymeriq",
       "title": "Start with the problem<br><em>worth understanding.</em>",
       "text": "Ask about the ecosystem, share an operational challenge, or explore a thoughtful collaboration. Clear context helps us have a more useful conversation.",
-      "fallbackTitle": "Prefer email?",
-      "fallbackText": "The website form is a preview and does not send messages yet. For now, contact Pymeriq directly at",
-      "formAction": "Preview message",
-      "formNote": "Preview only: this form does not send or store messages yet. Use the email address shown on this page.",
-      "previewComplete": "Preview complete — use the email address to send your message",
-      "fields": {
-        "name": "Name",
-        "namePlaceholder": "Your name",
-        "email": "Email",
-        "topic": "Topic",
-        "topics": [
-          "Business Solutions",
-          "Financial Solutions",
-          "Learning Solutions",
-          "Partnerships",
-          "General inquiry"
-        ],
-        "message": "Message",
-        "messagePlaceholder": "Tell us what you’re thinking about..."
-      }
+      "emailTitle": "Email Pymeriq",
+      "emailText": "Every message is read directly by the team.",
+      "emailNote": "We reply within 1–2 business days."
     },
     "cta": {
       "kicker": "Move the useful idea forward",
@@ -683,7 +666,7 @@ export const publicContent = {
     },
     "home": {
       "kicker": "Operaciones de negocio. Finanzas personales. Aprendizaje práctico.",
-      "title": "Un ecosistema práctico para el trabajo, el dinero y las destrezas.",
+      "title": "Un ecosistema <span class=\"accent\">práctico</span> para el trabajo, el dinero y las destrezas.",
       "lede": "Pymeriq reúne soluciones enfocadas para pequeños y medianos negocios, personas que gestionan sus finanzas y quienes desarrollan destrezas útiles.",
       "ctas": {
         "products": "Explorar productos",
@@ -830,26 +813,9 @@ export const publicContent = {
       "kicker": "Contacta a Pymeriq",
       "title": "Comienza con el problema<br><em>que vale entender.</em>",
       "text": "Pregunta sobre el ecosistema, comparte un reto operacional o explora una colaboración con propósito. Un contexto claro ayuda a tener una conversación más útil.",
-      "fallbackTitle": "¿Prefieres correo electrónico?",
-      "fallbackText": "El formulario del sitio es una vista previa y todavía no envía mensajes. Por ahora, contacta directamente a Pymeriq en",
-      "formAction": "Preparar mensaje",
-      "formNote": "Solo vista previa: este formulario todavía no envía ni almacena mensajes. Usa el correo electrónico que aparece en esta página.",
-      "previewComplete": "Vista previa lista — usa el correo electrónico para enviar tu mensaje",
-      "fields": {
-        "name": "Nombre",
-        "namePlaceholder": "Tu nombre",
-        "email": "Correo electrónico",
-        "topic": "Tema",
-        "topics": [
-          "Soluciones empresariales",
-          "Soluciones financieras",
-          "Soluciones educativas",
-          "Colaboraciones",
-          "Consulta general"
-        ],
-        "message": "Mensaje",
-        "messagePlaceholder": "Cuéntanos en qué estás pensando..."
-      }
+      "emailTitle": "Escríbele a Pymeriq",
+      "emailText": "Cada mensaje lo lee directamente el equipo.",
+      "emailNote": "Respondemos en 1–2 días hábiles."
     },
     "cta": {
       "kicker": "Lleva la idea útil hacia adelante",
