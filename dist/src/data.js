@@ -22,8 +22,8 @@ export const categories = {
     "en": "Learning Solutions",
     "es": "Soluciones educativas",
     "description": {
-      "en": "Pymeriq University develops useful skills through guided knowledge, practical steps, and real-world application.",
-      "es": "Pymeriq University desarrolla destrezas útiles mediante conocimiento guiado, pasos prácticos y aplicación en situaciones reales."
+      "en": "Pymeriq University offers educational programs—starting with Software Engineering—so small businesses and future business owners have the tools to make it happen.",
+      "es": "Pymeriq University ofrece programas educativos —empezando con Ingeniería de Software— para que pequeños negocios y futuros dueños tengan las herramientas para lograrlo."
     }
   }
 };
@@ -248,7 +248,7 @@ export const products = [
   {
     "slug": "university",
     "category": "learning",
-    "status": "ecosystem",
+    "status": "development",
     "icon": "book",
     "name": "Pymeriq University",
     "related": [
@@ -261,23 +261,23 @@ export const products = [
       "features": []
     },
     "en": {
-      "summary": "Practical learning that helps people use technology and knowledge with confidence.",
-      "description": "University is the learning arm of the Pymeriq ecosystem: a growing home for clear tutorials, useful frameworks, and skills that translate into action.",
-      "audience": "Owners, operators, and learners who value clear guidance they can put into practice.",
+      "summary": "Complete educational programs to build and run a business with confidence.",
+      "description": "University is Pymeriq's educational platform: structured programs that give small business owners—and people who aspire to build one—the educational tools to make it happen. The first program, Software Engineering, is in development, with areas like Business Administration and Accounting to follow.",
+      "audience": "Small business owners, entrepreneurs, and people who aspire to build a business of their own.",
       "outcomes": [
-        "Build useful skills through guided practice",
-        "Build useful capability",
-        "Turn knowledge into action"
+        "Learn through structured programs, not scattered tutorials",
+        "Start with Software Engineering; Business Administration, Accounting, and more to follow",
+        "Turn education into a real business"
       ]
     },
     "es": {
-      "summary": "Aprendizaje práctico que ayuda a usar la tecnología y el conocimiento con confianza.",
-      "description": "University es el área educativa del ecosistema Pymeriq: un espacio en crecimiento para tutoriales claros, marcos útiles y destrezas que se convierten en acción.",
-      "audience": "Dueños, operadores y personas que valoran orientación clara que puedan poner en práctica.",
+      "summary": "Programas educativos completos para construir y administrar un negocio con confianza.",
+      "description": "University es la plataforma educativa de Pymeriq: programas estructurados que dan a dueños de pequeños negocios —y a quienes aspiran a tener uno— las herramientas educativas para lograrlo. El primer programa, Ingeniería de Software, está en desarrollo; le seguirán áreas como Administración de Empresas y Contabilidad.",
+      "audience": "Dueños de pequeños negocios, emprendedores y personas que aspiran a construir un negocio propio.",
       "outcomes": [
-        "Desarrollar destrezas útiles mediante práctica guiada",
-        "Desarrollar capacidades útiles",
-        "Convertir conocimiento en acción"
+        "Formarte con programas estructurados, no tutoriales sueltos",
+        "Empezar con Ingeniería de Software; luego Administración de Empresas, Contabilidad y más",
+        "Convertir educación en un negocio real"
       ]
     }
   }
@@ -574,8 +574,8 @@ export const publicContent = {
         ]
       ],
       "learningKicker": "Pymeriq University",
-      "learningTitle": "Build useful skills through guided, practical learning.",
-      "learningText": "University is Pymeriq’s learning direction for developing skills through clear guidance, repeatable practice, and real-world application."
+      "learningTitle": "Educational programs to build your business.",
+      "learningText": "University is building complete educational programs—the first: Software Engineering—and will grow into Business Administration, Accounting, and more. In the meantime, these practical guides are a starting point."
     },
     "products": {
       "kicker": "One ecosystem. Clear product directions.",
@@ -602,9 +602,10 @@ export const publicContent = {
       "visualsTitle": "See the product direction in practice."
     },
     "tutorials": {
+      "kicker": "Pymeriq University · Practical guides",
       "title": "Practical knowledge<br><em>for useful progress.</em>",
       "text": "These guides turn operational questions, financial habits, and technology decisions into clear actions you can test and repeat.",
-      "principle": "These guides help people make better decisions around operations, personal finance, and practical technology—the same problem areas Pymeriq products address.",
+      "principle": "These guides are Pymeriq University's free starting point while its complete educational programs—beginning with Software Engineering—are in development.",
       "guideLabel": "Practical guide",
       "minutesLabel": "min read",
       "categoryLabels": {
@@ -742,8 +743,8 @@ export const publicContent = {
         ]
       ],
       "learningKicker": "Pymeriq University",
-      "learningTitle": "Desarrolla destrezas útiles mediante aprendizaje guiado y práctico.",
-      "learningText": "University es la dirección educativa de Pymeriq para desarrollar destrezas mediante orientación clara, práctica repetible y aplicación en situaciones reales."
+      "learningTitle": "Programas educativos para construir tu negocio.",
+      "learningText": "University está desarrollando programas completos —el primero: Ingeniería de Software— y crecerá hacia Administración de Empresas, Contabilidad y más. Mientras tanto, estas guías prácticas son un punto de partida."
     },
     "products": {
       "kicker": "Un ecosistema. Direcciones claras.",
@@ -770,9 +771,10 @@ export const publicContent = {
       "visualsTitle": "Conoce la dirección del producto en la práctica."
     },
     "tutorials": {
+      "kicker": "Pymeriq University · Guías prácticas",
       "title": "Conocimiento práctico<br><em>para progreso útil.</em>",
       "text": "Estas guías convierten preguntas operacionales, hábitos financieros y decisiones tecnológicas en acciones claras que puedes probar y repetir.",
-      "principle": "Estas guías ayudan a tomar mejores decisiones sobre operaciones, finanzas personales y tecnología práctica: las mismas áreas de problemas que abordan los productos Pymeriq.",
+      "principle": "Estas guías son el punto de partida gratuito de Pymeriq University mientras sus programas educativos completos —empezando con Ingeniería de Software— están en desarrollo.",
       "guideLabel": "Guía práctica",
       "minutesLabel": "min de lectura",
       "categoryLabels": {

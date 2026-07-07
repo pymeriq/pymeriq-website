@@ -301,9 +301,8 @@ function productDetailPage(slug) {
 
 function tutorialsPage() {
   const copy = publicContent[locale].tutorials;
-  const universityName = products.find((product) => product.slug === "university").name;
   return pageFrame("tutorials", `
-    ${pageHero(universityName, copy.title, copy.text)}
+    ${pageHero(copy.kicker, copy.title, copy.text)}
     <section class="learning-principle"><div class="shell"><span>${icon("book", 22)}</span><p>${copy.principle}</p></div></section>
     <section class="section"><div class="shell"><h2 class="sr-only">${copy.gridTitle}</h2><div class="tutorial-grid tutorial-grid-large">${tutorials.map(tutorialCard).join("")}</div></div></section>
     ${ctaBlock()}
