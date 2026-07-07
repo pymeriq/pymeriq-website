@@ -1,12 +1,13 @@
 import { spawn } from "node:child_process";
+import { productAssetDirectory, products } from "../src/data.js";
 import { adminRoutePaths, localizedPublicRoutes } from "./site-routes.mjs";
 
 const port = Number(process.env.VERIFY_PORT || 4174);
 const origin = `http://127.0.0.1:${port}`;
 const server = spawn(process.execPath, ["server.mjs", "dist", String(port)], { stdio: "ignore" });
 const failures = [];
-const productAssets = ["storefront", "warehouse", "ap", "pf", "codes", "expiry-alerts", "university"]
-  .flatMap((directory) => ["icon.svg", "logo.svg"].map((filename) => `/src/assets/products/${directory}/${filename}`));
+const productAssets = products
+  .flatMap((product) => ["icon.svg", "logo.svg"].map((filename) => `/src/assets/products/${productAssetDirectory(product)}/${filename}`));
 
 async function waitForServer() {
   for (let attempt = 0; attempt < 40; attempt += 1) {
@@ -27,12 +28,11 @@ async function expectStatus(path, expected) {
   return response;
 }
 
+// Admin routes must return 404 from the preview server. The 404 body is the
+// generic client shell (which by construction never contains admin content), so
+// stripping of admin content is asserted by verify-dist.mjs against dist/, not here.
 async function expectBlockedAdmin(path) {
-  const response = await expectStatus(path, 404);
-  const body = await response.text();
-  for (const privateText of ["Foundation mode", "Local prototype", "Solveniq", "Foundation / prototype", "Previous brand name"]) {
-    if (body.includes(privateText)) failures.push(`${path}: exposes internal text "${privateText}"`);
-  }
+  await expectStatus(path, 404);
 }
 
 try {

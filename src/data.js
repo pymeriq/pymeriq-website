@@ -192,6 +192,10 @@ export const products = [
   },
 ];
 
+export function productAssetDirectory(product) {
+  return product.slug === "billing" ? "ap" : product.slug;
+}
+
 export const tutorials = [
   {
     slug: "organize-inventory-basics",
@@ -282,7 +286,7 @@ export const tutorials = [
 export const content = {
   en: {
     nav: { products: "Products", tutorials: "Tutorials", about: "About", contact: "Contact", admin: "Admin" },
-    actions: { explore: "Explore the ecosystem", learn: "View product direction", allProducts: "Explore products", allTutorials: "Read practical guides", contact: "Start a conversation", read: "Read practical guide", back: "Back to" },
+    actions: { learn: "View product direction", allProducts: "Explore products", allTutorials: "Read practical guides", contact: "Start a conversation", read: "Read practical guide", back: "Back to" },
     status: { development: "In development", coming: "Coming soon", ecosystem: "Ecosystem concept" },
     accessibility: {
       menuOpen: "Open menu",
@@ -295,7 +299,7 @@ export const content = {
   },
   es: {
     nav: { products: "Productos", tutorials: "Tutoriales", about: "Nosotros", contact: "Contacto", admin: "Admin" },
-    actions: { explore: "Explora el ecosistema", learn: "Ver dirección del producto", allProducts: "Explorar productos", allTutorials: "Leer guías prácticas", contact: "Comienza una conversación", read: "Leer guía práctica", back: "Volver a" },
+    actions: { learn: "Ver dirección del producto", allProducts: "Explorar productos", allTutorials: "Leer guías prácticas", contact: "Comienza una conversación", read: "Leer guía práctica", back: "Volver a" },
     status: { development: "En desarrollo", coming: "Próximamente", ecosystem: "Concepto del ecosistema" },
     accessibility: {
       menuOpen: "Abrir menú",
@@ -385,6 +389,7 @@ export const publicContent = {
       text: "These guides turn operational questions, financial habits, and technology decisions into clear actions you can test and repeat.",
       principle: "These guides help people make better decisions around operations, personal finance, and practical technology—the same problem areas Pymeriq products address.",
       guideLabel: "Practical guide",
+      minutesLabel: "min read",
       categoryLabels: { business: "Business guide", financial: "Financial guide", learning: "Learning guide" },
       outcome: "What this guide helps you do",
       gridTitle: "Practical guides",
@@ -509,6 +514,7 @@ export const publicContent = {
       text: "Estas guías convierten preguntas operacionales, hábitos financieros y decisiones tecnológicas en acciones claras que puedes probar y repetir.",
       principle: "Estas guías ayudan a tomar mejores decisiones sobre operaciones, finanzas personales y tecnología práctica: las mismas áreas de problemas que abordan los productos Pymeriq.",
       guideLabel: "Guía práctica",
+      minutesLabel: "min de lectura",
       categoryLabels: { business: "Guía empresarial", financial: "Guía financiera", learning: "Guía de aprendizaje" },
       outcome: "Lo que esta guía te ayuda a lograr",
       gridTitle: "Guías prácticas",

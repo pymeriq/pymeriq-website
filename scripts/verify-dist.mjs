@@ -1,10 +1,10 @@
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
-import { products, routeMetadata, siteSettings, tutorials } from "../src/data.js";
+import { productAssetDirectory, products, routeMetadata, siteSettings, tutorials } from "../src/data.js";
 import { adminRoutePaths, publicRoutePaths } from "./site-routes.mjs";
+import { escapeAttribute } from "./shared.mjs";
 
 const failures = [];
-const escapeAttribute = (value) => value.replaceAll("&", "&amp;").replaceAll('"', "&quot;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 
 async function readRequired(path) {
   try {
@@ -37,10 +37,6 @@ function metadataFor(locale, path) {
   if (product) return { title: `${product.name} | Pymeriq`, description: product[locale].summary, type: "website" };
   if (tutorial) return { title: `${tutorial[locale].title} | Pymeriq`, description: tutorial[locale].excerpt, type: "article" };
   return { ...routeMetadata[locale][path === "" ? "home" : path.slice(1)], type: "website" };
-}
-
-function productAssetDirectory(product) {
-  return product.slug === "billing" ? "ap" : product.slug;
 }
 
 for (const locale of ["en", "es"]) {

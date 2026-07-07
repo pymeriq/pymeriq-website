@@ -1,7 +1,7 @@
 import { createReadStream, existsSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, resolve, sep } from "node:path";
-import { products, tutorials } from "./src/data.js";
+import { localizedPublicRoutes } from "./scripts/site-routes.mjs";
 
 const root = resolve(process.argv[2] || ".");
 const port = Number(process.argv[3] || 4173);
@@ -20,25 +20,27 @@ const types = {
   ".xml": "application/xml; charset=utf-8",
 };
 
-const productSlugs = new Set(products.map((product) => product.slug));
-const tutorialSlugs = new Set(tutorials.map((tutorial) => tutorial.slug));
-const publicSections = new Set(["products", "tutorials", "about", "contact"]);
+// The single source of truth for public routes lives in site-routes.mjs; reuse it
+// here instead of re-deriving the route shape so the two can never drift apart.
+const knownRoutes = new Set(["/", ...localizedPublicRoutes]);
 
 function isKnownRoute(pathname) {
   const parts = pathname.split("/").filter(Boolean);
   if (parts.length === 0) return true;
-  if (parts[0] === "admin") return false;
-  if (!["en", "es"].includes(parts[0])) return false;
-  if (parts.length === 1) return true;
-  if (parts.length === 2) return publicSections.has(parts[1]);
-  if (parts.length !== 3) return false;
-  if (parts[1] === "products") return productSlugs.has(parts[2]);
-  if (parts[1] === "tutorials") return tutorialSlugs.has(parts[2]);
-  return false;
+  return knownRoutes.has(`/${parts.join("/")}`);
 }
 
 createServer((request, response) => {
-  const pathname = decodeURIComponent(new URL(request.url, `http://${request.headers.host}`).pathname);
+  let pathname;
+  try {
+    pathname = decodeURIComponent(new URL(request.url, `http://${request.headers.host}`).pathname);
+  } catch {
+    // Malformed percent-encoding (e.g. `/%`) makes decodeURIComponent throw; a
+    // synchronous throw here would crash the whole server, so answer 400 instead.
+    response.writeHead(400, { "Content-Type": "text/plain; charset=utf-8", "X-Content-Type-Options": "nosniff" });
+    response.end("Bad request");
+    return;
+  }
   const candidate = resolve(root, `.${pathname}`);
   const withinRoot = candidate === root || candidate.startsWith(`${root}${sep}`);
   const routeIndex = join(candidate, "index.html");
@@ -56,6 +58,7 @@ createServer((request, response) => {
   response.writeHead(status, {
     "Content-Type": file ? types[extname(file)] || "application/octet-stream" : "text/plain; charset=utf-8",
     "Cache-Control": "no-cache",
+    "X-Content-Type-Options": "nosniff",
   });
   if (file) createReadStream(file).pipe(response);
   else response.end("Not found");
