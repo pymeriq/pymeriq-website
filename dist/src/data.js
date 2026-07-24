@@ -22,8 +22,8 @@ export const categories = {
     "en": "Learning Solutions",
     "es": "Soluciones educativas",
     "description": {
-      "en": "Pymeriq University offers educational programs—starting with Software Engineering—so small businesses and future business owners have the tools to make it happen.",
-      "es": "Pymeriq University ofrece programas educativos —empezando con Ingeniería de Software— para que pequeños negocios y futuros dueños tengan las herramientas para lograrlo."
+      "en": "Pymeriq Learn It offers hands-on educational programs—live today with three web-development programs—so small businesses and future business owners have the tools to make it happen.",
+      "es": "Pymeriq Learn It ofrece programas educativos prácticos —hoy en vivo con tres programas de desarrollo web— para que pequeños negocios y futuros dueños tengan las herramientas para lograrlo."
     }
   }
 };
@@ -217,7 +217,7 @@ export const products = [
     "icon": "chart",
     "name": "Pymeriq PF",
     "related": [
-      "university"
+      "learn-it"
     ],
     "visuals": {
       "card": null,
@@ -246,11 +246,12 @@ export const products = [
     }
   },
   {
-    "slug": "university",
+    "slug": "learn-it",
     "category": "learning",
-    "status": "development",
+    "status": "live",
     "icon": "book",
-    "name": "Pymeriq University",
+    "name": "Pymeriq Learn It",
+    "website": "https://learn.pymeriq.com",
     "related": [
       "pf",
       "warehouse"
@@ -261,23 +262,23 @@ export const products = [
       "features": []
     },
     "en": {
-      "summary": "Complete educational programs to build and run a business with confidence.",
-      "description": "University is Pymeriq's educational platform: structured programs that give small business owners—and people who aspire to build one—the educational tools to make it happen. The first program, Software Engineering, is in development, with areas like Business Administration and Accounting to follow.",
-      "audience": "Small business owners, entrepreneurs, and people who aspire to build a business of their own.",
+      "summary": "Hands-on educational programs where you learn to create by creating — live at learn.pymeriq.com.",
+      "description": "Learn It is Pymeriq's educational platform, live today. Three complete programs in Spanish teach real web development from absolute zero: build a web page (HTML, CSS, JavaScript), publish it on the internet, and turn it into an application that remembers data and talks to real APIs. Everything is typed by hand and verified against the real effect of your code — honest correction, no shortcuts. Areas like Business Administration and Accounting will follow.",
+      "audience": "Anyone who wants to learn to create with code from zero — small business owners, future business owners, and curious beginners.",
       "outcomes": [
-        "Learn through structured programs, not scattered tutorials",
-        "Start with Software Engineering; Business Administration, Accounting, and more to follow",
-        "Turn education into a real business"
+        "Learn by building: every line is typed and verified for real",
+        "Three programs live: create a web page, publish it, and turn it into an application",
+        "Free, in Spanish, at learn.pymeriq.com"
       ]
     },
     "es": {
-      "summary": "Programas educativos completos para construir y administrar un negocio con confianza.",
-      "description": "University es la plataforma educativa de Pymeriq: programas estructurados que dan a dueños de pequeños negocios —y a quienes aspiran a tener uno— las herramientas educativas para lograrlo. El primer programa, Ingeniería de Software, está en desarrollo; le seguirán áreas como Administración de Empresas y Contabilidad.",
-      "audience": "Dueños de pequeños negocios, emprendedores y personas que aspiran a construir un negocio propio.",
+      "summary": "Programas educativos prácticos donde aprendes a crear, creando — en vivo en learn.pymeriq.com.",
+      "description": "Learn It es la plataforma educativa de Pymeriq, disponible hoy. Tres programas completos en español enseñan desarrollo web real desde cero absoluto: crear una página web (HTML, CSS, JavaScript), publicarla en internet, y convertirla en una aplicación que recuerda datos y conversa con APIs reales. Todo se teclea a mano y se verifica contra el efecto real del código — corrección honesta, sin atajos. Le seguirán áreas como Administración de Empresas y Contabilidad.",
+      "audience": "Cualquier persona que quiera aprender a crear con código desde cero — dueños de pequeños negocios, futuros dueños y principiantes curiosos.",
       "outcomes": [
-        "Formarte con programas estructurados, no tutoriales sueltos",
-        "Empezar con Ingeniería de Software; luego Administración de Empresas, Contabilidad y más",
-        "Convertir educación en un negocio real"
+        "Aprender creando: cada línea se teclea y se verifica de verdad",
+        "Tres programas en vivo: crea una página web, publícala y conviértela en aplicación",
+        "Gratis, en español, en learn.pymeriq.com"
       ]
     }
   }
@@ -438,12 +439,14 @@ export const content = {
       "allTutorials": "Read practical guides",
       "contact": "Start a conversation",
       "read": "Read practical guide",
-      "back": "Back to"
+      "back": "Back to",
+      "visit": "Visit the live site"
     },
     "status": {
       "development": "In development",
       "coming": "Coming soon",
-      "ecosystem": "Ecosystem concept"
+      "ecosystem": "Ecosystem concept",
+      "live": "Live now"
     },
     "accessibility": {
       "menuOpen": "Open menu",
@@ -469,12 +472,14 @@ export const content = {
       "allTutorials": "Leer guías prácticas",
       "contact": "Comienza una conversación",
       "read": "Leer guía práctica",
-      "back": "Volver a"
+      "back": "Volver a",
+      "visit": "Visitar el sitio en vivo"
     },
     "status": {
       "development": "En desarrollo",
       "coming": "Próximamente",
-      "ecosystem": "Concepto del ecosistema"
+      "ecosystem": "Concepto del ecosistema",
+      "live": "Disponible"
     },
     "accessibility": {
       "menuOpen": "Abrir menú",
@@ -547,7 +552,7 @@ export const publicContent = {
         ],
         [
           "Learning",
-          "University"
+          "Learn It"
         ]
       ],
       "categoriesKicker": "Why one ecosystem",
@@ -573,9 +578,9 @@ export const publicContent = {
           "Use technology where it helps someone make a better next move."
         ]
       ],
-      "learningKicker": "Pymeriq University",
-      "learningTitle": "Educational programs to build your business.",
-      "learningText": "University is building complete educational programs—the first: Software Engineering—and will grow into Business Administration, Accounting, and more. In the meantime, these practical guides are a starting point."
+      "learningKicker": "Pymeriq Learn It",
+      "learningTitle": "Educational programs, live today.",
+      "learningText": "Learn It's first three programs are live at learn.pymeriq.com: create a web page, publish it on the internet, and turn it into a real application — free, hands-on, with honest correction. These practical guides complement them."
     },
     "products": {
       "kicker": "One ecosystem. Clear product directions.",
@@ -594,7 +599,8 @@ export const publicContent = {
       "expectations": {
         "development": "This product is actively being shaped. Its direction is clear, while availability and final scope will be shared as development progresses.",
         "coming": "This is a planned product direction. Pymeriq will publish availability and confirmed capabilities when they are ready.",
-        "ecosystem": "This is an ecosystem concept that shows where Pymeriq is researching practical value. It is not presented as a launched product."
+        "ecosystem": "This is an ecosystem concept that shows where Pymeriq is researching practical value. It is not presented as a launched product.",
+        "live": "This product is live and free to use today. Visit it and start — no account required."
       },
       "related": "Related ecosystem products",
       "relatedTitle": "Part of a connected ecosystem.",
@@ -602,10 +608,10 @@ export const publicContent = {
       "visualsTitle": "See the product direction in practice."
     },
     "tutorials": {
-      "kicker": "Pymeriq University · Practical guides",
+      "kicker": "Pymeriq Learn It · Practical guides",
       "title": "Practical knowledge<br><em>for useful progress.</em>",
       "text": "These guides turn operational questions, financial habits, and technology decisions into clear actions you can test and repeat.",
-      "principle": "These guides are Pymeriq University's free starting point while its complete educational programs—beginning with Software Engineering—are in development.",
+      "principle": "These guides are Pymeriq Learn It's free companion. The complete programs — starting with web development — are live at learn.pymeriq.com.",
       "guideLabel": "Practical guide",
       "minutesLabel": "min read",
       "categoryLabels": {
@@ -716,7 +722,7 @@ export const publicContent = {
         ],
         [
           "Aprendizaje",
-          "University"
+          "Learn It"
         ]
       ],
       "categoriesKicker": "Por qué un ecosistema",
@@ -742,9 +748,9 @@ export const publicContent = {
           "Usar tecnología donde ayude a tomar un mejor próximo paso."
         ]
       ],
-      "learningKicker": "Pymeriq University",
-      "learningTitle": "Programas educativos para construir tu negocio.",
-      "learningText": "University está desarrollando programas completos —el primero: Ingeniería de Software— y crecerá hacia Administración de Empresas, Contabilidad y más. Mientras tanto, estas guías prácticas son un punto de partida."
+      "learningKicker": "Pymeriq Learn It",
+      "learningTitle": "Programas educativos, en vivo hoy.",
+      "learningText": "Los primeros tres programas de Learn It están en vivo en learn.pymeriq.com: crea una página web, publícala en internet y conviértela en una aplicación real — gratis, práctico y con corrección honesta. Estas guías prácticas los complementan."
     },
     "products": {
       "kicker": "Un ecosistema. Direcciones claras.",
@@ -763,7 +769,8 @@ export const publicContent = {
       "expectations": {
         "development": "Este producto se está desarrollando activamente. Su dirección es clara, mientras la disponibilidad y el alcance final se compartirán según avance el desarrollo.",
         "coming": "Esta es una dirección de producto planificada. Pymeriq publicará su disponibilidad y capacidades confirmadas cuando estén listas.",
-        "ecosystem": "Este es un concepto del ecosistema que muestra dónde Pymeriq investiga valor práctico. No se presenta como un producto lanzado."
+        "ecosystem": "Este es un concepto del ecosistema que muestra dónde Pymeriq investiga valor práctico. No se presenta como un producto lanzado.",
+        "live": "Este producto está en vivo y es gratuito hoy. Entra y comienza — sin necesidad de cuenta."
       },
       "related": "Productos relacionados del ecosistema",
       "relatedTitle": "Parte de un ecosistema conectado.",
@@ -771,10 +778,10 @@ export const publicContent = {
       "visualsTitle": "Conoce la dirección del producto en la práctica."
     },
     "tutorials": {
-      "kicker": "Pymeriq University · Guías prácticas",
+      "kicker": "Pymeriq Learn It · Guías prácticas",
       "title": "Conocimiento práctico<br><em>para progreso útil.</em>",
       "text": "Estas guías convierten preguntas operacionales, hábitos financieros y decisiones tecnológicas en acciones claras que puedes probar y repetir.",
-      "principle": "Estas guías son el punto de partida gratuito de Pymeriq University mientras sus programas educativos completos —empezando con Ingeniería de Software— están en desarrollo.",
+      "principle": "Estas guías son el complemento gratuito de Pymeriq Learn It. Los programas completos —empezando con desarrollo web— están en vivo en learn.pymeriq.com.",
       "guideLabel": "Guía práctica",
       "minutesLabel": "min de lectura",
       "categoryLabels": {
