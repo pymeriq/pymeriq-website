@@ -112,7 +112,7 @@ await readRequired("dist/src/styles.css");
 for (const asset of ["pymeriq-logo.svg", "pymeriq-mark.svg", "pymeriq-og.jpg", "favicon.ico", "favicon-32.png", "favicon-48.png", "apple-touch-icon.png"]) {
   await readRequired(`dist/src/assets/brand/${asset}`);
 }
-for (const directory of ["storefront", "warehouse", "ap", "pf", "codes", "expiry-alerts", "university"]) {
+for (const directory of ["storefront", "warehouse", "ap", "pf", "codes", "expiry-alerts", "learn-it"]) {
   await readRequired(`dist/src/assets/products/${directory}/icon.svg`);
   await readRequired(`dist/src/assets/products/${directory}/logo.svg`);
 }

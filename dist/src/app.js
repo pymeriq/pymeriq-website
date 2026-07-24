@@ -248,7 +248,7 @@ function homePage() {
     </section>
     <section class="section">
       <div class="shell">
-        <div class="section-heading compact"><div><p class="eyebrow green-text">${copy.learningKicker}</p><h2>${copy.learningTitle}</h2><p class="section-intro">${copy.learningText}</p></div><a class="text-link" href="${localizedPath("/tutorials")}">${t.actions.allTutorials} ${icon("arrow", 16)}</a></div>
+        <div class="section-heading compact"><div><p class="eyebrow green-text">${copy.learningKicker}</p><h2>${copy.learningTitle}</h2><p class="section-intro">${copy.learningText}</p></div><div class="learning-links"><a class="button button-primary" href="https://learn.pymeriq.com" target="_blank" rel="noopener">${t.actions.visit} ${icon("arrow", 17)}</a><a class="text-link" href="${localizedPath("/tutorials")}">${t.actions.allTutorials} ${icon("arrow", 16)}</a></div></div>
         <div class="tutorial-grid">${tutorials.map(tutorialCard).join("")}</div>
       </div>
     </section>
@@ -285,7 +285,7 @@ function productDetailPage(slug) {
   return pageFrame("products", `
     <section class="detail-hero">
       <div class="shell detail-hero-grid">
-        <div><a class="back-link" href="${localizedPath("/products")}">← ${content[locale].actions.back} ${content[locale].nav.products}</a><p class="eyebrow ${category.color}-text">${category[locale]}</p><h1>${product.name}</h1><p class="hero-lede">${copy.summary}</p><span class="status status-large">${content[locale].status[product.status]}</span></div>
+        <div><a class="back-link" href="${localizedPath("/products")}">← ${content[locale].actions.back} ${content[locale].nav.products}</a><p class="eyebrow ${category.color}-text">${category[locale]}</p><h1>${product.name}</h1><p class="hero-lede">${copy.summary}</p><span class="status status-large">${content[locale].status[product.status]}</span>${product.website ? `<div class="detail-cta"><a class="button button-primary" href="${product.website}" target="_blank" rel="noopener">${content[locale].actions.visit} ${icon("arrow", 17)}</a></div>` : ""}</div>
         <div class="product-detail-visual ${category.color} ${detailVisual ? "has-image" : ""}">${detailVisual || `${productLogoAsset(product)}<div class="detail-lines"><i></i><i></i><i></i></div>`}</div>
       </div>
     </section>
